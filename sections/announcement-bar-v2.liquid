@@ -1,0 +1,76 @@
+
+<style>
+    .announcement-bar {
+        text-transform: uppercase;
+        background: {{section.settings.background_color}};
+        text-align: center;
+        color: {{section.settings.text_color}};
+        padding: 15px;
+    }
+    .announcement-bar p {
+        margin: 0;
+    }
+</style>
+
+{% capture  announcement_content %}
+    <section class="announcement-bar"> 
+        <div> {{section.settings.message}} </div>  
+    </section>
+{% endcapture %}
+
+
+{% if section.settings.show_announcement %}
+   {% if template != 'index' %}
+        {% if section.settings.show_all_pages %}
+            {{announcement_content}}
+        {% endif %}
+    {% else %}
+        {{announcement_content}}
+    {% endif %}
+{% endif %}
+
+
+{% schema %}
+{
+    
+  "name": "Announcement Bar",
+  "tag": "section",
+  "class": "announcement-bar-v2",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Announcement Title"
+    },
+    {
+      "type": "richtext",
+      "id": "message",
+      "label": "Announcement Message"
+    },
+    {
+        "type": "color_background",
+        "id": "background_color",
+        "label": "Background Color"
+      },          
+    {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#ffffff"
+      },    
+    {
+        "type": "checkbox",
+        "id": "show_announcement",
+        "label": "Show announcement",
+        "default": true
+    },
+    {
+        "type": "checkbox",
+        "id": "show_all_pages",
+        "label": "Show on all pages",
+        "default": false,
+        "info": "show announcement on all pages"
+    }
+  ]
+}
+{% endschema %}

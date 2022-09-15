@@ -1,0 +1,132 @@
+
+{%- style -%}
+.half-text-half-image {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    text-align: left;
+}
+
+.half-text,
+.half-image {
+    position: relative;
+    flex: 0 0 100%;
+    height: 500px;
+}
+  
+.half-image img {
+    height: 100%;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    -o-object-fit: cover;
+}
+
+.half-text {
+    padding: 50px 20px;
+}
+
+.half-text h2 {
+    font-size: 30px;
+}
+ 
+    
+@media (min-width: 1025px) {
+    
+    .half-image, 
+    .half-text {
+        position: relative;
+        flex: 0 0 50%; 
+    }
+    
+    .half-image img {
+        position: absolute;
+    }
+    
+    .half-text {
+        padding: 50px;
+    }
+
+    .half-text h2 {
+        font-size: 40px;
+    }   
+    
+    .half-text-half-image.right {
+        flex-direction: row-reverse;
+    }
+}
+
+{%- endstyle -%}
+
+
+<section class="half-text-half-image {{ section.settings.image_position }}">
+    
+        <div class="half-text">
+            <h2> {{section.settings.headline}} </h2>
+            <h3> {{section.settings.sub_headline}} </h3>
+            <div>
+                {{section.settings.content}}
+            </div>
+        </div>
+        <div class="half-image"> 
+            <img src="{{ section.settings.half_image | img_url: '800x' }}" alt="{{ section.settings.half_image.alt | escape }}">
+        </div>
+     
+</section>
+
+
+
+{% schema %}
+{
+    "name": "Half Text Half Image",
+    "tag": "section",
+    "class": "half-text-half-image",
+    "settings": [
+        {
+            "type": "text",
+            "id": "headline",
+            "label": "Headline"
+        },
+        {
+            "type": "text",
+            "id": "sub_headline",
+            "label": "Sub Headline"
+        },
+        {
+            "type": "richtext",
+            "id": "content",
+            "label": "Content"
+        },
+        {
+            "type": "image_picker",
+            "id": "half_image",
+            "label": "Image"
+        },
+        {
+            "type": "radio",
+            "id": "image_position",
+            "label": "Image Position",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ],
+            "default": "left"
+        }          
+    ],
+
+    "presets": [
+    {
+      "category": "Text",
+      "name": "Half Text Half Image",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
